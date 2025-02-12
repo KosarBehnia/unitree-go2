@@ -14,18 +14,19 @@
     <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3"
       markrgb="0.8 0.8 0.8" width="300" height="300"/>
     <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2"/>
-    <texture name="curtain_texture" type="2d" file="textures/curtain.png" width="512" height="512"/>
-    <texture name="wall_texture" type="2d" file="textures/wall.png" width="512" height="512"/>   
+    <texture name="curtain_texture" type="2d" file="textures/flower.png" width="512" height="512"/>
+    <texture name="wall_texture" type="2d" file="textures/wall.png" width="512" height="512"/>
+    <texture name="curtainbase_texture" type="2d" file="textures/curtainbase.png" width="512" height="512"/>
         <!-- Define the material using the texture -->
     <material name="curtain_material" texture="curtain_texture" texuniform="true" reflectance="0.2"/>
     <material name="wall_material" texture="wall_texture" texuniform="true" reflectance="0.2"/>
+    <material name="curtainbase_material" texture="curtainbase_texture" texuniform="true" reflectance="0.2"/>
   </asset>
 
   <worldbody>
         <!-- Create a body for the curtain -->
 
-    <body name="curtain" pos="2 0 .5">
-            <!-- Create multiple panels manually -->
+     <!-- <body name="curtain" pos="2 0 .5">
              <body name="panem9" pos="0 -.9 0">
                 <geom size="0.05 .5 .05" type="cylinder" material="curtain_material"/>
             </body>
@@ -84,6 +85,19 @@
                 <geom size="0.05 0.5 0.05" type="cylinder" material="curtain_material"/>
             </body>
     
+    </body> -->
+    <body name="composite_body" pos="2 .2 0.5" >
+    <composite type="grid" count="5 10 1" spacing="0.2" offset="0 0 .4">
+      <skin material="curtain_material" inflate="0.00" subgrid="3" texcoord="true"/>
+      <geom size=".02"/>
+      <pin coord="0 0"/>
+      <pin coord="0 2"/>
+      <pin coord="0 4"/>
+      <pin coord="0 6"/>
+      <pin coord="0 8"/>
+      <pin coord="0 9"/>
+
+    </composite>
     </body>
     <body name="left_wall" pos="1.3 1.1 0.2">
             <geom size="1.5 0.1 .2" type="box" material="wall_material"/>
@@ -95,6 +109,13 @@
     </body>
     <light pos="0 0 1.5" dir="0 0 -1" directional="true"/>
     <geom name="floor" size="0 0 0.05" type="plane" material="groundplane"/>
+    
+    <body name="back_wall" pos="2.8 .1 0.2">
+            <geom size=".1 1.1 .2" type="box" material="wall_material"/>
+    </body>
+    <body name="up_wall" pos="1.4 .1 .9">
+            <geom size=".08 .9 .02" type="box" material="wall_material"/>
+    </body>
     <!-- Curtain added using a grid composite -->
   </worldbody>
 </mujoco>
