@@ -1,0 +1,60 @@
+Wed Feb 12 14:39:36 2025
+ERROR: could not initialize GLFW
+
+Wed Feb 12 14:42:02 2025
+ERROR: could not initialize GLFW
+
+Wed Feb 12 14:45:23 2025
+ERROR: could not initialize GLFW
+
+Wed Feb 12 14:45:48 2025
+ERROR: could not initialize GLFW
+
+Wed Feb 12 14:47:09 2025
+ERROR: could not initialize GLFW
+
+Wed Feb 12 14:47:34 2025
+ERROR: could not create window
+
+Wed Feb 12 14:48:56 2025
+ERROR: could not create window
+
+Wed Feb 12 14:49:20 2025
+ERROR: could not create window
+
+Wed Feb 12 14:50:16 2025
+ERROR: could not create window
+
+Wed Feb 12 14:52:20 2025
+ERROR: could not create window
+
+Wed Feb 12 14:52:53 2025
+ERROR: could not create window
+
+Wed Feb 12 14:54:58 2025
+ERROR: could not create window
+
+Thu Feb 13 15:38:04 2025
+WARNING: File size over 2GB is not supported. File: '/home/localadmin/mujoco_menagerie/trossen_vx300s'
+
+Thu Feb 13 16:28:42 2025
+ERROR: could not initialize GLFW
+
+Thu Feb 13 16:29:58 2025
+ERROR: could not initialize GLFW
+
+Thu Feb 13 16:35:41 2025
+ERROR: could not initialize GLFW
+
+Thu Feb 13 16:36:19 2025
+ERROR: could not initialize GLFW
+
+Thu Feb 13 16:36:47 2025
+ERROR: could not initialize GLFW
+
+Thu Feb 13 16:37:53 2025
+ERROR: could not initialize GLFW
+
+Thu Feb 13 16:48:13 2025
+ERROR: could not initialize GLFW
+
