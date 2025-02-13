@@ -34,9 +34,35 @@
         </default>
       </default>
     </default>
+    <default class="wx250s">
+      <mesh scale="0.001 0.001 0.001"/>
+      <joint axis="0 1 0" frictionloss="0.1" armature="0.1"/>
+      <position kp="50" inheritrange="1" dampratio="0.95" forcerange="-35 35"/>
+<!--      <default class="visual">
+        <geom type="mesh" contype="0" conaffinity="0" density="0" group="2" material="black"/>
+      </default> -->
+      <default class="collisionm">
+        <geom group="3" type="mesh"/>
+        <default class="sphere_collision">
+          <geom type="sphere" size="0.0006" rgba="1 0 0 1"/>
+        </default>
+      </default>
+  </default>
   </default>
 
   <asset>
+    <texture type="2d" file="interbotix_black.png"/>
+    <material name="blackm" texture="interbotix_black"/>
+    <mesh file="wx250s_1_base.stl" class="wx250s"/>
+    <mesh file="wx250s_2_shoulder.stl" class="wx250s"/>
+    <mesh file="wx250s_3_upper_arm.stl" class="wx250s"/>
+    <mesh file="wx250s_4_upper_forearm.stl" class="wx250s"/>
+    <mesh file="wx250s_5_lower_forearm.stl" class="wx250s"/>
+    <mesh file="wx250s_6_wrist.stl" class="wx250s"/>
+    <mesh file="wx250s_7_gripper.stl" class="wx250s"/>
+    <mesh file="wx250s_8_gripper_prop.stl" class="wx250s"/>
+    <mesh file="wx250s_9_gripper_bar.stl" class="wx250s"/>
+    <mesh file="wx250s_10_gripper_finger.stl" class="wx250s"/> 
     <material name="metal" rgba=".9 .95 .95 1" />
     <material name="black" rgba="0 0 0 1" />
     <material name="white" rgba="1 1 1 1" />
@@ -72,6 +98,7 @@
       <geom mesh="base_3" material="white" class="visual" />
       <geom mesh="base_4" material="gray" class="visual" />
       <geom size="0.1881 0.04675 0.057" type="box" class="collision" />
+      <include file="wx250s.xml"/>
       <geom size="0.05 0.045" pos="0.285 0 0.01" type="cylinder" class="collision" />
       <geom size="0.047" pos="0.293 0 -0.06" class="collision" />
       <site name="imu" pos="-0.02557 0 0.04232" />
@@ -220,6 +247,13 @@
   </worldbody>
 
   <actuator>
+    <position class="wx250s" name="waist" joint="waist"/>
+    <position class="wx250s" name="shoulder" joint="shoulder"/>
+    <position class="wx250s" name="elbow" joint="elbow"/>
+    <position class="wx250s" name="forearm_roll" joint="forearm_roll"/>
+    <position class="wx250s" name="wrist_angle" joint="wrist_angle"/>
+    <position class="wx250s" name="wrist_rotate" joint="wrist_rotate"/>
+    <position class="wx250s" name="gripper" joint="left_finger" kp="200"/>
     <motor class="abduction" name="FR_hip" joint="FR_hip_joint" />
     <motor class="hip" name="FR_thigh" joint="FR_thigh_joint" />
     <motor class="knee" name="FR_calf" joint="FR_calf_joint" />
@@ -281,7 +315,12 @@
     <framepos name="frame_pos" objtype="site" objname="imu" />
     <framelinvel name="frame_vel" objtype="site" objname="imu" />
   </sensor>
-
+  <contact>
+    <exclude body1="wx250s/base_link" body2="wx250s/shoulder_link"/>
+  </contact>
+  <equality>
+    <joint joint1="left_finger" joint2="right_finger" polycoef="0 -1 0 0 0"/>
+  </equality>
   <keyframe>
     <key name="home" qpos="0.0 0.0 0.27 1.0 0.0 0.0 0.0 0.0 0.9 -1.8 0.0 0.9 -1.8 0.0 0.9 -1.8 0.0 0.9 -1.8 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
     0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0

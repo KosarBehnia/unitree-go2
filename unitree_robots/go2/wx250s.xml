@@ -3,38 +3,6 @@
 
   <option integrator="implicitfast" cone="elliptic" impratio="10"/> -->
 
-   <asset>
-    <texture type="2d" file="interbotix_black.png"/>
-    <material name="blackm" texture="interbotix_black"/>
-    <mesh file="wx250s_1_base.stl" class="wx250s"/>
-    <mesh file="wx250s_2_shoulder.stl" class="wx250s"/>
-    <mesh file="wx250s_3_upper_arm.stl" class="wx250s"/>
-    <mesh file="wx250s_4_upper_forearm.stl" class="wx250s"/>
-    <mesh file="wx250s_5_lower_forearm.stl" class="wx250s"/>
-    <mesh file="wx250s_6_wrist.stl" class="wx250s"/>
-    <mesh file="wx250s_7_gripper.stl" class="wx250s"/>
-    <mesh file="wx250s_8_gripper_prop.stl" class="wx250s"/>
-    <mesh file="wx250s_9_gripper_bar.stl" class="wx250s"/>
-    <mesh file="wx250s_10_gripper_finger.stl" class="wx250s"/> 
-  </asset>
-
-<default>
-   <default class="wx250s">
-      <mesh scale="0.001 0.001 0.001"/>
-      <joint axis="0 1 0" frictionloss="0.1" armature="0.1"/>
-      <position kp="50" inheritrange="1" dampratio="0.95" forcerange="-35 35"/>
-<!--      <default class="visual">
-        <geom type="mesh" contype="0" conaffinity="0" density="0" group="2" material="black"/>
-      </default> -->
-      <default class="collisionm">
-        <geom group="3" type="mesh"/>
-        <default class="sphere_collision">
-          <geom type="sphere" size="0.0006" rgba="1 0 0 1"/>
-        </default>
-      </default>
-    </default>
-  </default>
-  <worldbody>
     <light mode="targetbodycom" target="wx250s/gripper_link" pos="1 0 1"/>
     <body name="wx250s/base_link" childclass="wx250s">
       <inertial pos="-0.0380446 0.000613892 0.0193354" quat="0.509292 0.490887 -0.496359 0.503269" mass="0.538736"
@@ -104,24 +72,8 @@
         </body>
       </body>
     </body>
-  </worldbody>
- <contact>
-    <exclude body1="wx250s/base_link" body2="wx250s/shoulder_link"/>
-  </contact>
+ 
 
-  <equality>
-    <joint joint1="left_finger" joint2="right_finger" polycoef="0 -1 0 0 0"/>
-  </equality>
-
-  <actuator>
-    <position class="wx250s" name="waist" joint="waist"/>
-    <position class="wx250s" name="shoulder" joint="shoulder"/>
-    <position class="wx250s" name="elbow" joint="elbow"/>
-    <position class="wx250s" name="forearm_roll" joint="forearm_roll"/>
-    <position class="wx250s" name="wrist_angle" joint="wrist_angle"/>
-    <position class="wx250s" name="wrist_rotate" joint="wrist_rotate"/>
-    <position class="wx250s" name="gripper" joint="left_finger" kp="200"/>
-  </actuator>
 
 <!--  <keyframe>
     <key name="home" qpos="0 -0.96 1.16 0 -0.3 0 0.015 -0.015" ctrl="0 -0.96 1.16 0 -0.3 0 0.015"/>
