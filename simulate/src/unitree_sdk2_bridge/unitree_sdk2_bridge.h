@@ -132,8 +132,8 @@ public:
     xKeySwitchUnion dds_keys_ = {};
     xRockerBtnDataStruct wireless_remote_ = {};
 
-    JoystickId js_id_;
-    Joystick *js_;
+    //JoystickId js_id_;
+    //Joystick *js_;
     int max_value_ = (1 << 15); // 16 bits joystick
 
     mjData *mj_data_;

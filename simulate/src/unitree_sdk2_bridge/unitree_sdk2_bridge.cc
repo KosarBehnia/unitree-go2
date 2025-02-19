@@ -36,7 +36,7 @@ UnitreeSdk2Bridge::UnitreeSdk2Bridge(mjModel *model, mjData *data) : mj_model_(m
 
 UnitreeSdk2Bridge::~UnitreeSdk2Bridge()
 {
-    delete js_;
+   // delete js_;
 }
 
 void UnitreeSdk2Bridge::LowCmdGoHandler(const void *msg)
@@ -94,11 +94,11 @@ void UnitreeSdk2Bridge::PublishLowStateGo()
             low_state_go_.imu_state().accelerometer()[2] = mj_data_->sensordata[dim_motor_sensor_ + 9];
         }
 
-        if (js_)
-        {
-            GetWirelessRemote();
-            memcpy(&low_state_go_.wireless_remote()[0], &wireless_remote_, 40);
-        }
+        //if (js_)
+        //{
+        //    GetWirelessRemote();
+        //    memcpy(&low_state_go_.wireless_remote()[0], &wireless_remote_, 40);
+       // }
 
         low_state_go_puber_->Write(low_state_go_);
     }
@@ -131,11 +131,11 @@ void UnitreeSdk2Bridge::PublishLowStateHg()
             low_state_hg_.imu_state().accelerometer()[2] = mj_data_->sensordata[dim_motor_sensor_ + 9];
         }
 
-        if (js_)
-        {
-            GetWirelessRemote();
-            memcpy(&low_state_hg_.wireless_remote()[0], &wireless_remote_, 40);
-        }
+       // if (js_)
+       // {
+       //     GetWirelessRemote();
+       //     memcpy(&low_state_hg_.wireless_remote()[0], &wireless_remote_, 40);
+       // }
 
         low_state_hg_puber_->Write(low_state_hg_);
     }
@@ -160,34 +160,34 @@ void UnitreeSdk2Bridge::PublishHighState()
 
 void UnitreeSdk2Bridge::PublishWirelessController()
 {
-    if (js_)
-    {
-        js_->getState();
-        dds_keys_.components.R1 = js_->button_[js_id_.button["RB"]];
-        dds_keys_.components.L1 = js_->button_[js_id_.button["LB"]];
-        dds_keys_.components.start = js_->button_[js_id_.button["START"]];
-        dds_keys_.components.select = js_->button_[js_id_.button["SELECT"]];
-        dds_keys_.components.R2 = (js_->axis_[js_id_.axis["RT"]] > 0);
-        dds_keys_.components.L2 = (js_->axis_[js_id_.axis["LT"]] > 0);
-        dds_keys_.components.F1 = 0;
-        dds_keys_.components.F2 = 0;
-        dds_keys_.components.A = js_->button_[js_id_.button["A"]];
-        dds_keys_.components.B = js_->button_[js_id_.button["B"]];
-        dds_keys_.components.X = js_->button_[js_id_.button["X"]];
-        dds_keys_.components.Y = js_->button_[js_id_.button["Y"]];
-        dds_keys_.components.up = (js_->axis_[js_id_.axis["DY"]] < 0);
-        dds_keys_.components.right = (js_->axis_[js_id_.axis["DX"]] > 0);
-        dds_keys_.components.down = (js_->axis_[js_id_.axis["DY"]] > 0);
-        dds_keys_.components.left = (js_->axis_[js_id_.axis["DX"]] < 0);
+   // if (js_)
+   // {
+   //     js_->getState();
+   //     dds_keys_.components.R1 = js_->button_[js_id_.button["RB"]];
+  //      dds_keys_.components.L1 = js_->button_[js_id_.button["LB"]];
+  //      dds_keys_.components.start = js_->button_[js_id_.button["START"]];
+  //      dds_keys_.components.select = js_->button_[js_id_.button["SELECT"]];
+  //      dds_keys_.components.R2 = (js_->axis_[js_id_.axis["RT"]] > 0);
+  //      dds_keys_.components.L2 = (js_->axis_[js_id_.axis["LT"]] > 0);
+  //      dds_keys_.components.F1 = 0;
+ //       dds_keys_.components.F2 = 0;
+ //       dds_keys_.components.A = js_->button_[js_id_.button["A"]];
+  //      dds_keys_.components.B = js_->button_[js_id_.button["B"]];
+  //      dds_keys_.components.X = js_->button_[js_id_.button["X"]];
+  //      dds_keys_.components.Y = js_->button_[js_id_.button["Y"]];
+  //      dds_keys_.components.up = (js_->axis_[js_id_.axis["DY"]] < 0);
+  //      dds_keys_.components.right = (js_->axis_[js_id_.axis["DX"]] > 0);
+  //      dds_keys_.components.down = (js_->axis_[js_id_.axis["DY"]] > 0);
+  //      dds_keys_.components.left = (js_->axis_[js_id_.axis["DX"]] < 0);
 
-        wireless_controller_.lx() = double(js_->axis_[js_id_.axis["LX"]]) / max_value_;
-        wireless_controller_.ly() = -double(js_->axis_[js_id_.axis["LY"]]) / max_value_;
-        wireless_controller_.rx() = double(js_->axis_[js_id_.axis["RX"]]) / max_value_;
-        wireless_controller_.ry() = -double(js_->axis_[js_id_.axis["RY"]]) / max_value_;
-        wireless_controller_.keys() = dds_keys_.value;
+    //    wireless_controller_.lx() = double(js_->axis_[js_id_.axis["LX"]]) / max_value_;
+    //    wireless_controller_.ly() = -double(js_->axis_[js_id_.axis["LY"]]) / max_value_;
+    //    wireless_controller_.rx() = double(js_->axis_[js_id_.axis["RX"]]) / max_value_;
+    //    wireless_controller_.ry() = -double(js_->axis_[js_id_.axis["RY"]]) / max_value_;
+     //   wireless_controller_.keys() = dds_keys_.value;
 
-        wireless_controller_puber_->Write(wireless_controller_);
-    }
+     //   wireless_controller_puber_->Write(wireless_controller_);
+    //}
 }
 
 void UnitreeSdk2Bridge::Run()
@@ -200,59 +200,59 @@ void UnitreeSdk2Bridge::Run()
 
 void UnitreeSdk2Bridge::SetupJoystick(string device, string js_type, int bits)
 {
-    js_ = new Joystick(device);
-    if (!js_->isFound())
-    {
-        cout << "Error: Joystick open failed." << endl;
-        exit(1);
-    }
+//    js_ = new Joystick(device);
+ //   if (!js_->isFound())
+ //   {
+ //       cout << "Error: Joystick open failed." << endl;
+ //       exit(1);
+  //  }
 
-    max_value_ = (1 << (bits - 1));
+  //  max_value_ = (1 << (bits - 1));
 
-    if (js_type == "xbox")
-    {
-        js_id_.axis["LX"] = 0; // Left stick axis x
-        js_id_.axis["LY"] = 1; // Left stick axis y
-        js_id_.axis["RX"] = 3; // Right stick axis x
-        js_id_.axis["RY"] = 4; // Right stick axis y
-        js_id_.axis["LT"] = 2; // Left trigger
-        js_id_.axis["RT"] = 5; // Right trigger
-        js_id_.axis["DX"] = 6; // Directional pad x
-        js_id_.axis["DY"] = 7; // Directional pad y
+   // if (js_type == "xbox")
+   // {
+   //     js_id_.axis["LX"] = 0; // Left stick axis x
+   //     js_id_.axis["LY"] = 1; // Left stick axis y
+   //     js_id_.axis["RX"] = 3; // Right stick axis x
+   //     js_id_.axis["RY"] = 4; // Right stick axis y
+   //     js_id_.axis["LT"] = 2; // Left trigger
+   //     js_id_.axis["RT"] = 5; // Right trigger
+   //     js_id_.axis["DX"] = 6; // Directional pad x
+   //     js_id_.axis["DY"] = 7; // Directional pad y
 
-        js_id_.button["X"] = 2;
-        js_id_.button["Y"] = 3;
-        js_id_.button["B"] = 1;
-        js_id_.button["A"] = 0;
-        js_id_.button["LB"] = 4;
-        js_id_.button["RB"] = 5;
-        js_id_.button["SELECT"] = 6;
-        js_id_.button["START"] = 7;
-    }
-    else if (js_type == "switch")
-    {
-        js_id_.axis["LX"] = 0; // Left stick axis x
-        js_id_.axis["LY"] = 1; // Left stick axis y
-        js_id_.axis["RX"] = 2; // Right stick axis x
-        js_id_.axis["RY"] = 3; // Right stick axis y
-        js_id_.axis["LT"] = 5; // Left trigger
-        js_id_.axis["RT"] = 4; // Right trigger
-        js_id_.axis["DX"] = 6; // Directional pad x
-        js_id_.axis["DY"] = 7; // Directional pad y
+   //     js_id_.button["X"] = 2;
+   //     js_id_.button["Y"] = 3;
+   //     js_id_.button["B"] = 1;
+   //     js_id_.button["A"] = 0;
+   //     js_id_.button["LB"] = 4;
+   //     js_id_.button["RB"] = 5;
+   //     js_id_.button["SELECT"] = 6;
+  //      js_id_.button["START"] = 7;
+   // }
+   // else if (js_type == "switch")
+   // {
+     //   js_id_.axis["LX"] = 0; // Left stick axis x
+      //  js_id_.axis["LY"] = 1; // Left stick axis y
+       // js_id_.axis["RX"] = 2; // Right stick axis x
+       // js_id_.axis["RY"] = 3; // Right stick axis y
+       // js_id_.axis["LT"] = 5; // Left trigger
+       // js_id_.axis["RT"] = 4; // Right trigger
+        //js_id_.axis["DX"] = 6; // Directional pad x
+        //js_id_.axis["DY"] = 7; // Directional pad y
 
-        js_id_.button["X"] = 3;
-        js_id_.button["Y"] = 4;
-        js_id_.button["B"] = 1;
-        js_id_.button["A"] = 0;
-        js_id_.button["LB"] = 6;
-        js_id_.button["RB"] = 7;
-        js_id_.button["SELECT"] = 10;
-        js_id_.button["START"] = 11;
-    }
-    else
-    {
-        cout << "Unsupported gamepad." << endl;
-    }
+        //js_id_.button["X"] = 3;
+        //js_id_.button["Y"] = 4;
+        //js_id_.button["B"] = 1;
+        //js_id_.button["A"] = 0;
+        //js_id_.button["LB"] = 6;
+        //js_id_.button["RB"] = 7;
+        //js_id_.button["SELECT"] = 10;
+        //js_id_.button["START"] = 11;
+    //}
+    //else
+    //{
+      //  cout << "Unsupported gamepad." << endl;
+    //}
 }
 
 void UnitreeSdk2Bridge::PrintSceneInformation()
@@ -346,26 +346,26 @@ void UnitreeSdk2Bridge::CheckSensor()
 
 void UnitreeSdk2Bridge::GetWirelessRemote()
 {
-    js_->getState();
-    wireless_remote_.btn.components.R1 = js_->button_[js_id_.button["RB"]];
-    wireless_remote_.btn.components.L1 = js_->button_[js_id_.button["LB"]];
-    wireless_remote_.btn.components.start = js_->button_[js_id_.button["START"]];
-    wireless_remote_.btn.components.select = js_->button_[js_id_.button["SELECT"]];
-    wireless_remote_.btn.components.R2 = (js_->axis_[js_id_.axis["RT"]] > 0);
-    wireless_remote_.btn.components.L2 = (js_->axis_[js_id_.axis["LT"]] > 0);
-    wireless_remote_.btn.components.F1 = 0;
-    wireless_remote_.btn.components.F2 = 0;
-    wireless_remote_.btn.components.A = js_->button_[js_id_.button["A"]];
-    wireless_remote_.btn.components.B = js_->button_[js_id_.button["B"]];
-    wireless_remote_.btn.components.X = js_->button_[js_id_.button["X"]];
-    wireless_remote_.btn.components.Y = js_->button_[js_id_.button["Y"]];
-    wireless_remote_.btn.components.up = (js_->axis_[js_id_.axis["DY"]] < 0);
-    wireless_remote_.btn.components.right = (js_->axis_[js_id_.axis["DX"]] > 0);
-    wireless_remote_.btn.components.down = (js_->axis_[js_id_.axis["DY"]] > 0);
-    wireless_remote_.btn.components.left = (js_->axis_[js_id_.axis["DX"]] < 0);
+  //  js_->getState();
+  //  wireless_remote_.btn.components.R1 = js_->button_[js_id_.button["RB"]];
+  //  wireless_remote_.btn.components.L1 = js_->button_[js_id_.button["LB"]];
+  //  wireless_remote_.btn.components.start = js_->button_[js_id_.button["START"]];
+  //  wireless_remote_.btn.components.select = js_->button_[js_id_.button["SELECT"]];
+  //  wireless_remote_.btn.components.R2 = (js_->axis_[js_id_.axis["RT"]] > 0);
+  //  wireless_remote_.btn.components.L2 = (js_->axis_[js_id_.axis["LT"]] > 0);
+  //  wireless_remote_.btn.components.F1 = 0;
+  //  wireless_remote_.btn.components.F2 = 0;
+  //  wireless_remote_.btn.components.A = js_->button_[js_id_.button["A"]];
+  //  wireless_remote_.btn.components.B = js_->button_[js_id_.button["B"]];
+  //  wireless_remote_.btn.components.X = js_->button_[js_id_.button["X"]];
+  //  wireless_remote_.btn.components.Y = js_->button_[js_id_.button["Y"]];
+  //  wireless_remote_.btn.components.up = (js_->axis_[js_id_.axis["DY"]] < 0);
+  //  wireless_remote_.btn.components.right = (js_->axis_[js_id_.axis["DX"]] > 0);
+  //  wireless_remote_.btn.components.down = (js_->axis_[js_id_.axis["DY"]] > 0);
+  //  wireless_remote_.btn.components.left = (js_->axis_[js_id_.axis["DX"]] < 0);
 
-    wireless_remote_.lx = double(js_->axis_[js_id_.axis["LX"]]) / max_value_;
-    wireless_remote_.ly = -double(js_->axis_[js_id_.axis["LY"]]) / max_value_;
-    wireless_remote_.rx = double(js_->axis_[js_id_.axis["RX"]]) / max_value_;
-    wireless_remote_.ry = -double(js_->axis_[js_id_.axis["RY"]]) / max_value_;
+  //  wireless_remote_.lx = double(js_->axis_[js_id_.axis["LX"]]) / max_value_;
+  //  wireless_remote_.ly = -double(js_->axis_[js_id_.axis["LY"]]) / max_value_;
+  //  wireless_remote_.rx = double(js_->axis_[js_id_.axis["RX"]]) / max_value_;
+  //  wireless_remote_.ry = -double(js_->axis_[js_id_.axis["RY"]]) / max_value_;
 }

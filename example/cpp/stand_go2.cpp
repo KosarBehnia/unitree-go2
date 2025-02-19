@@ -100,19 +100,19 @@ void Custom::Init()
 
 void Custom::InitLowCmd()
 {
-    low_cmd.head()[0] = 0xFE;
-    low_cmd.head()[1] = 0xEF;
+    low_cmd.head()[0 + 7] = 0xFE;
+    low_cmd.head()[1 + 7] = 0xEF;
     low_cmd.level_flag() = 0xFF;
     low_cmd.gpio() = 0;
 
     for (int i = 0; i < 20; i++)
     {
-        low_cmd.motor_cmd()[i].mode() = (0x01); // motor switch to servo (PMSM) mode
-        low_cmd.motor_cmd()[i].q() = (PosStopF);
-        low_cmd.motor_cmd()[i].kp() = (0);
-        low_cmd.motor_cmd()[i].dq() = (VelStopF);
-        low_cmd.motor_cmd()[i].kd() = (0);
-        low_cmd.motor_cmd()[i].tau() = (0);
+        low_cmd.motor_cmd()[i + 7].mode() = (0x01); // motor switch to servo (PMSM) mode
+        low_cmd.motor_cmd()[i + 7].q() = (PosStopF);
+        low_cmd.motor_cmd()[i + 7].kp() = (0);
+        low_cmd.motor_cmd()[i + 7].dq() = (VelStopF);
+        low_cmd.motor_cmd()[i + 7].kd() = (0);
+        low_cmd.motor_cmd()[i + 7].tau() = (0);
     }
 }
 
@@ -133,11 +133,11 @@ void Custom::LowCmdWrite()
         phase = tanh(runing_time / 1.2);
         for (int i = 0; i < 12; i++)
         {
-            low_cmd.motor_cmd()[i].q() = phase * stand_up_joint_pos[i] + (1 - phase) * stand_down_joint_pos[i];
-            low_cmd.motor_cmd()[i].dq() = 0;
-            low_cmd.motor_cmd()[i].kp() = phase * 50.0 + (1 - phase) * 20.0;
-            low_cmd.motor_cmd()[i].kd() = 3.5;
-            low_cmd.motor_cmd()[i].tau() = 0;
+            low_cmd.motor_cmd()[i + 7].q() = phase * stand_up_joint_pos[i] + (1 - phase) * stand_down_joint_pos[i];
+            low_cmd.motor_cmd()[i + 7].dq() = 0;
+            low_cmd.motor_cmd()[i + 7].kp() = phase * 50.0 + (1 - phase) * 20.0;
+            low_cmd.motor_cmd()[i + 7].kd() = 3.5;
+            low_cmd.motor_cmd()[i + 7].tau() = 0;
         }
     }
     else
@@ -146,11 +146,11 @@ void Custom::LowCmdWrite()
         phase = tanh((runing_time - 3.0) / 1.2);
         for (int i = 0; i < 12; i++)
         {
-            low_cmd.motor_cmd()[i].q() = phase * stand_down_joint_pos[i] + (1 - phase) * stand_up_joint_pos[i];
-            low_cmd.motor_cmd()[i].dq() = 0;
-            low_cmd.motor_cmd()[i].kp() = 50;
-            low_cmd.motor_cmd()[i].kd() = 3.5;
-            low_cmd.motor_cmd()[i].tau() = 0;
+            low_cmd.motor_cmd()[i + 7].q() = phase * stand_down_joint_pos[i] + (1 - phase) * stand_up_joint_pos[i];
+            low_cmd.motor_cmd()[i + 7].dq() = 0;
+            low_cmd.motor_cmd()[i + 7].kp() = 50;
+            low_cmd.motor_cmd()[i + 7].kd() = 3.5;
+            low_cmd.motor_cmd()[i + 7].tau() = 0;
         }
     }
 
