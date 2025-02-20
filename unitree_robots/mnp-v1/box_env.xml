@@ -1,0 +1,37 @@
+<mujoco model="box_env">
+    <compiler angle="radian"/>
+    <option timestep="0.01"/>
+  <statistic center="0 0 0.1" extent="0.8"/>
+
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0 0 0"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <global azimuth="-130" elevation="-20"/>
+  </visual>
+
+  <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="3072"/>
+    <texture type="2d" name="groundplane" builtin="checker" mark="edge" rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3"
+      markrgb="0.8 0.8 0.8" width="300" height="300"/>
+    <material name="groundplane" texture="groundplane" texuniform="true" texrepeat="5 5" reflectance="0.2"/>
+    <texture name="curtain_texture" type="2d" file="../go2/textures/flower.png" width="512" height="512"/>
+    <texture name="wall_texture" type="2d" file="../go2/textures/wall.png" width="512" height="512"/>
+    <texture name="curtainbase_texture" type="2d" file="../go2/textures/curtainbase.png" width="512" height="512"/>
+        <!-- Define the material using the texture -->
+    <material name="curtain_material" texture="curtain_texture" texuniform="true" reflectance="0.2"/>
+    <material name="wall_material" texture="wall_texture" texuniform="true" reflectance="0.2"/>
+    <material name="curtainbase_material" texture="curtainbase_texture" texuniform="true" reflectance="0.2"/>
+  </asset>
+    <worldbody>
+ 
+        <!-- Ground -->
+        <geom name="ground" type="plane" size="10 10 0.1" rgba="0.9 0.9 0.9 1"/>
+
+        <!-- Movable Box -->
+        <body name="box" pos="0 0 0.5">
+            <freejoint/>
+            <geom name="box_geom" type="box" size="0.1 0.1 0.1" rgba="1 0 0 1"/>
+        </body>
+    </worldbody>
+</mujoco>
+
